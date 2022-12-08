@@ -1,11 +1,11 @@
 # Site settings
-title: 李理的博客
-SEOTitle: 李理的博客
+title: Evinci' Blog
+SEOTitle: Evinci' Blog
 header-img: img/home-bg.jpg
-email: fancyerii@gmail.com
+email: evinciverciy@gmail.com
 description: ""
 keyword: ""
-url: "http://fancyerii.github.io"              # your host, for absolute URL
+url: "http://eevinci.github.io"              # your host, for absolute URL
 baseurl: ""         # for example, '/blog' if your blog hosted on 'host/blog'
 excerpt_separator: "<!--more-->"
 
@@ -14,7 +14,7 @@ excerpt_separator: "<!--more-->"
 RSS: true
 #weibo_username:     huxpro
 #zhihu_username:     huxpro
-github_username:    fancyerii
+github_username:    eevinci
 #twitter_username:  huxpro
 #facebook_username:  huxpro
 
@@ -47,7 +47,7 @@ kramdown:
 
 
 # Disqus settings
-disqus_username: fancyerii
+disqus_username: eevinci
 
 # Duoshuo settings
 duoshuo_username:  
@@ -62,7 +62,7 @@ duoshuo_share: false                     # set to false if you want to use Comme
 ba_track_id: 1adf2d3145a435baa683d84388135812
 # Google Analytics
 # ga_track_id: 'UA-133955198-1'            # Format: UA-xxxxxx-xx
-# ga_domain: fancyerii.github.io
+# ga_domain: eevinci.github.io
 
 
 
@@ -122,7 +122,7 @@ collections:
 # Friends
 friends: [
     {
-        title: "Li Li",
-        href: "http://fancyerii.github.io"
+        title: "Evinci",
+        href: "http://eevinci.github.io"
     }
 ]
