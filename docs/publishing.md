@@ -63,7 +63,15 @@ def learn(question):
 
 `draft: true` 的文章不会生成网页，本地开发也不显示。要预览草稿，先仅在本地临时改为 `draft: false`，运行 `npm run dev`。确认暂不发布时改回 `true`。
 
-完成定稿后，在 main 分支执行：
+仓库的 `main` 分支要求 1 位审核者批准。后续更新使用文章分支和 PR，合并后自动上线。开始整理新文章前：
+
+```bash
+git switch main
+git pull --ff-only
+git switch -c codex/my-note
+```
+
+完成定稿后执行：
 
 ```bash
 npm run check
@@ -71,9 +79,10 @@ npm run build
 npm run verify
 git add src/content/posts/my-note.md public/images/my-note
 git commit -s -m "Publish a new note"
-git push origin main
+git push -u origin codex/my-note
+gh pr create --base main --title "发布新笔记" --body "新增已整理完成的文章。"
 ```
 
-文件名和图片目录替换为实际路径；没有图片就省略该目录。只暂存本次确实要公开的文件。GitHub Actions 成功后，文章出现在博客、搜索和 RSS。`draft: true` 不会保护公开仓库里的源码，私人草稿不要提交。
+文件名和图片目录替换为实际路径；没有图片就省略该目录。只暂存本次确实要公开的文件。PR 的构建检查通过、审核并合并到 `main` 后，会自动发布。部署成功后，文章出现在博客、搜索和 RSS。`draft: true` 不会保护公开仓库里的源码，私人草稿不要提交。
 
 建议第一批选择：一个研究得较深入的问题、一段有实际结果的实践、一次能说明取舍的复盘。每篇写清楚背景、过程、结论与参考资料。
