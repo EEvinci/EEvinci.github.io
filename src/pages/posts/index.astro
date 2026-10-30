@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostRow from '../../components/PostRow.astro';
+import Icon from '../../components/Icon.astro';
+import { publishedPosts } from '../../lib/posts';
+const posts = await publishedPosts();
+const tags = [...new Set(posts.flatMap(post => post.data.tags))].sort();
+---
+<Base title="文章">
+  <header class="page-heading"><span class="eyebrow">THE NOTEBOOK</span><h1>笔记与思考<span class="blue-dot">.</span></h1><p>学习的线索，实践的过程，以及值得再想一遍的问题。</p></header>
+  <div class="archive-toolbar"><label class="search-box" for="search"><Icon name="search" /><input id="search" type="search" aria-label="搜索文章" placeholder="搜索标题、摘要或正文…" autocomplete="off" /><kbd aria-hidden="true">/</kbd></label><p id="result-count" role="status" aria-live="polite">共 {posts.length} 篇文章</p></div>
+  <div class="filter-list" aria-label="按标签筛选"><button data-tag="" class="active" aria-pressed="true">全部</button>{tags.map(tag => <button data-tag={tag} aria-pressed="false">{tag}</button>)}</div>
+  <div class="archive-posts">{posts.map(post => <div class="search-entry" data-id={post.id} data-tags={JSON.stringify(post.data.tags)}><PostRow post={post} /></div>)}</div>
+  <div id="no-results" class="empty-state" hidden><span class="eyebrow">NO MATCHES YET</span><h2>暂时没有找到相关文章</h2><p>试试其他关键词，或清除筛选查看全部笔记。</p><button id="clear-search" class="text-button">清除筛选 ↗</button></div>
+  <noscript><p class="muted">搜索与筛选需要 JavaScript。你仍然可以阅读上方的全部文章。</p></noscript>
+</Base>
+<script>
+  const input = document.querySelector<HTMLInputElement>('#search')!;
+  const entries = [...document.querySelectorAll<HTMLElement>('.search-entry')];
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-tag]')];
+  let tag = new URLSearchParams(location.search).get('tag') || '';
+  let index: { id: string; text: string }[] = [];
+  try { index = await fetch('/search.json').then(r => { if (!r.ok) throw new Error('Search index unavailable'); return r.json(); }); }
+  catch { index = entries.map(entry => ({ id: entry.dataset.id!, text: entry.textContent || '' })); }
+  function filter() {
+    const query = input.value.toLocaleLowerCase().trim();
+    let count = 0;
+    entries.forEach(entry => {
+      const tags: string[] = JSON.parse(entry.dataset.tags || '[]');
+      const text = index.find(item => item.id === entry.dataset.id)?.text.toLocaleLowerCase() || '';
+      const visible = (!tag || tags.includes(tag)) && (!query || query.split(/\s+/).every(word => text.includes(word)));
+      entry.hidden = !visible;
+      if (visible) count++;
+    });
+    buttons.forEach(button => { const active = button.dataset.tag === tag; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
+    document.getElementById('result-count')!.textContent = `共 ${count} 篇文章`;
+    document.getElementById('no-results')!.hidden = count > 0;
+  }
+  input.addEventListener('input', filter);
+  buttons.forEach(button => button.addEventListener('click', () => {
+    tag = button.dataset.tag || '';
+    const url = new URL(location.href);
+    if (tag) url.searchParams.set('tag', tag); else url.searchParams.delete('tag');
+    history.replaceState(null, '', url);
+    filter();
+  }));
+  document.getElementById('clear-search')?.addEventListener('click', () => { input.value = ''; tag = ''; history.replaceState(null, '', location.pathname); filter(); input.focus(); });
+  document.addEventListener('keydown', event => { if (event.key === '/' && !(event.target instanceof HTMLInputElement) && !(event.target instanceof HTMLTextAreaElement) && !(event.target instanceof HTMLElement && event.target.isContentEditable)) { event.preventDefault(); input.focus(); } });
+  filter();
+  if (location.hash === '#search') input.focus();
+</script>

@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PostRow from '../components/PostRow.astro';
+import { publishedPosts, site } from '../lib/posts';
+const posts = await publishedPosts();
+const recent = [...posts.filter(p => p.data.featured), ...posts.filter(p => !p.data.featured)].slice(0, 4);
+---
+<Base>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="status-dot"></span> A PERSONAL SPACE FOR THINKING</p>
+      <h1>保持好奇，<br />把探索<span class="serif-accent">写下来。</span></h1>
+      <p class="hero-description">你好，我是 Evinci。<br />在这里记录关于 AI、产品构建与教育的学习和思考，<br class="desktop-break" />也记录从一个想法到一次真实实践的过程。</p>
+      <a class="text-link hero-link" href="/posts/">阅读笔记 <span>↗</span></a>
+    </div>
+    <aside class="explorations" aria-label="正在探索的方向">
+      <div class="exploration-heading"><span class="eyebrow">CURRENTLY EXPLORING</span><span class="tiny-plus">+</span></div>
+      <a href="/about/#interests"><span class="index-number">01</span><div><h2>AI & Agents</h2><p>让工具连接，让想法落地</p></div><Icon name="arrow" size={15} /></a>
+      <a href="/about/#interests"><span class="index-number">02</span><div><h2>Building things</h2><p>从原型到有用的产品</p></div><Icon name="arrow" size={15} /></a>
+      <a href="/about/#interests"><span class="index-number">03</span><div><h2>Learning & Education</h2><p>探索更好的教与学</p></div><Icon name="arrow" size={15} /></a>
+      <span class="exploration-note">Ideas in progress, always.</span>
+    </aside>
+  </section>
+  <section class="writing-section" aria-labelledby="writing-title">
+    <div class="section-header"><div><span class="eyebrow">THE NOTEBOOK</span><h2 id="writing-title">笔记与思考<span class="section-count">{String(posts.length).padStart(2, '0')}</span></h2></div><a href="/posts/" class="text-link small">全部文章 <span>↗</span></a></div>
+    <div class="writing-grid"><div>{recent.map(post => <PostRow post={post} featured={post.data.featured} />)}{!posts.length && <p class="empty-state">第一篇笔记正在整理中。欢迎稍后再来。</p>}</div>
+      <aside class="margin-note"><span class="note-symbol">✳</span><h3>慢慢积累，<br />让思考留下痕迹。</h3><p>这里是一份持续生长的记录。<br />把零散的笔记整理成文章，<br />让学习、实践和反思彼此连接。</p><a href="/about/" class="text-link small">关于我和这个博客 <span>↗</span></a></aside>
+    </div>
+  </section>
+  <section class="contact-strip"><div><span class="eyebrow">LET'S CONNECT</span><h2>有相似的好奇心？</h2><p>欢迎交流 AI 工具、教育中的真实问题，以及还没完成的想法。</p></div><a href={`mailto:${site.email}`} class="contact-link">打个招呼 <Icon name="arrow" size={20} /></a></section>
+</Base>

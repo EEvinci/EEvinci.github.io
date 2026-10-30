@@ -1,0 +1,32 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { publishedPosts, formatDate, readingTime } from '../../lib/posts';
+import 'katex/dist/katex.min.css';
+export async function getStaticPaths() {
+  return (await publishedPosts()).map(post => ({ params: { id: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const toc = headings.filter(heading => heading.depth === 2 || heading.depth === 3);
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<Base title={post.data.title} description={post.data.description} article date={post.data.date}>
+  <div class="article-layout">
+    <article>
+      <header class="article-header"><a href="/posts/" class="back-link">← 全部文章</a><div class="post-meta"><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time><span>·</span><span>{readingTime(post)} 分钟阅读</span></div><h1>{post.data.title}</h1><p class="article-deck">{post.data.description}</p><div class="tag-list">{post.data.tags.map(tag => <a href={`/posts/?tag=${encodeURIComponent(tag)}`}># {tag}</a>)}</div>{post.data.updated && <p class="updated">最后更新于 {formatDate(post.data.updated)}</p>}</header>
+      <div class="prose"><Content /></div>
+      <footer class="article-end"><span>谢谢你读到这里。</span><button id="copy-link" class="text-button">复制文章链接 ↗</button><span id="copy-status" role="status" class="sr-only"></span><a href="/posts/">← 返回文章列表</a></footer>
+    </article>
+    <aside class="toc"><div><span class="eyebrow">ON THIS PAGE</span><nav aria-label="文章目录">{toc.map(heading => <a class:list={{ subheading: heading.depth === 3 }} href={`#${heading.slug}`}>{heading.text}</a>)}</nav><a class="back-top" href="#main">回到顶部 ↑</a></div></aside>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.data.title, description: post.data.description, datePublished: post.data.date.toISOString(), dateModified: (post.data.updated || post.data.date).toISOString(), author: { '@type': 'Person', name: 'Evinci', url: new URL('/about/', Astro.site).href }, url: canonical.href }).replace(/</g, '\u003c')} />
+</Base>
+<script>
+  document.getElementById('copy-link')?.addEventListener('click', async () => {
+    const button = document.getElementById('copy-link')!;
+    try { await navigator.clipboard.writeText(document.querySelector<HTMLLinkElement>('link[rel="canonical"]')!.href); button.textContent = '已复制 ✓'; }
+    catch { button.textContent = '请从地址栏复制链接'; }
+    document.getElementById('copy-status')!.textContent = button.textContent;
+  });
+</script>
