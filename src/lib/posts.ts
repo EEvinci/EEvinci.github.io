@@ -2,8 +2,8 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export const site = {
   name: 'Evinci',
-  title: 'Evinci · Notes & Explorations',
-  description: '关于 AI、产品构建与教育的学习笔记、实践记录和持续思考。',
+  title: 'Evinci · 有结构的好奇心',
+  description: 'Understand complexity. Act simply. 关于 AI、教育与创作的个人笔记。',
   github: 'https://github.com/EEvinci',
   email: 'evinciverciy@gmail.com',
 };

@@ -35,7 +35,5 @@ for (const [file, html] of htmlCache) {
     checkedLinks++;
   }
 }
-for (const required of ['rss.xml', 'search.json', 'sitemap-index.xml', 'sitemap-0.xml', '404.html', 'robots.txt']) assert.ok(await exists(path.join(root, required)), `Missing ${required}`);
-const index = JSON.parse(await readFile(path.join(root, 'search.json'), 'utf8'));
-for (const entry of index) assert.ok(await exists(path.join(root, 'posts', entry.id, 'index.html')), `Search result has no page: ${entry.id}`);
-console.log(`Verified ${htmlFiles.length} HTML pages, ${checkedLinks} internal links/assets/anchors, RSS, sitemap and ${index.length} search entries.`);
+for (const required of ['rss.xml', 'sitemap-index.xml', 'sitemap-0.xml', '404.html', 'robots.txt']) assert.ok(await exists(path.join(root, required)), `Missing ${required}`);
+console.log(`Verified ${htmlFiles.length} HTML pages, ${checkedLinks} internal links/assets/anchors, RSS and sitemap.`);

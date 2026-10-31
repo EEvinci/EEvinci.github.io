@@ -1,25 +1,32 @@
-# Evinci · Notes & Explorations
+# Evinci · 有结构的好奇心
 
-关于 AI、产品构建与教育的个人博客。开源 Astro 构建，GitHub Pages 托管。
+**Understand complexity. Act simply.**
 
-**博客：<https://eevinci.github.io/>**
+基于 [Evinci 个人视觉体系](https://github.com/EEvinci/personal-visual-identity) 的多页面个人博客框架。使用咖啡棕、奶茶、米白、雾霾蓝，沿用已确认的 Cormorant 标题、霞鹜文楷手写批注与 Q 版形象。
 
-## 本地运行
+当前版本仅建立框架，**没有公开文章、示例文章或自动导入的 Obsidian 笔记**。
 
-Node.js 24 LTS（至少 24.19；也可使用 Node 22.23.4+）。
+## 页面结构
+
+- `/`：个人形象、简介、个人标签、思考方式、文章入口；紧凑的个人首页。
+- `/posts/`：独立的文章目录。
+- `/topics/<领域>/`：六个领域的文章空间与二级主题索引，当前为空。
+- `/posts/<文章名>/`：以后发布文章时自动生成的阅读页面模板。
+
+没有独立关于页、明暗主题切换或搜索控件。文章页保留适合深度内容的目录、公式、代码高亮与参考链接。
+
+分类镜像自 Praxian 根目录《标签库.md》v1（2026-10-31），见 `src/lib/topics.ts`；只复用了领域与主题名称，没有复制笔记。今后词表调整后手动更新配置。
+
+## 本地预览
+
+Node.js 24 LTS。
 
 ```bash
 npm ci
 npm run dev
 ```
 
-## 写一篇文章
-
-```bash
-npm run new:post -- my-first-note "我的第一篇笔记"
-```
-
-编辑 `src/content/posts/my-first-note.md`，填好摘要、日期、标签与正文。草稿默认 `draft: true`，不会出现在网页、搜索、RSS 和 sitemap 中。定稿后改为 `false`。
+正式构建与检查：
 
 ```bash
 npm run check
@@ -28,35 +35,31 @@ npm run verify
 npm run preview
 ```
 
-推送到 `main`，GitHub Actions 自动检查、构建和发布。PR 只构建检查，不发布。
+尚无文章时，Astro 的空集合警告是预期行为，页面会正常生成。添加第一篇文章后消失。
 
-**源码仓库是公开的。`draft: true` 只隐藏生成的网站内容；提交到 GitHub 的草稿源码仍可被看到。私人内容应留在自己的 Obsidian 库，不提交到这个仓库。未来日期的文章需在到期后再次触发构建才会发布。**
+## 以后填充文章
 
-详细操作见 [从 Obsidian 发布文章](docs/publishing.md)，接域名见 [托管与自定义域名](docs/hosting.md)。
+```bash
+npm run new:post -- my-first-note "文章标题"
+```
 
-## 功能
+编辑生成的 Markdown，填写 `areas`、两级 `tags`、摘要与正文，定稿后将 `draft` 改为 `false`。未定稿的私人笔记不应提交到公开源码仓库。
 
-- 中文阅读排版、响应式页面、明暗主题（记住选择）
-- 正文全文搜索、标签筛选、文章目录、阅读时长
-- Markdown、KaTeX 公式、Shiki 代码高亮、表格与图片
-- 草稿与未来文章过滤，RSS、sitemap、canonical、文章结构化数据
-- 构建后的站内链接、附件与目录锚点检查
+详见 [发布说明](docs/publishing.md) 和 [托管、域名说明](docs/hosting.md)。
 
-## 内容与配置
+## 主要文件
 
 | 路径 | 用途 |
 | --- | --- |
-| `src/content/posts/*.md` | 要公开的文章 |
-| `public/images/` | 公开文章的图片和附件 |
-| `src/lib/posts.ts` | 作者信息、联系方式、文章过滤 |
-| `src/pages/about.astro` | 个人介绍（依据 GitHub 自述） |
-| `src/styles/global.css` | 视觉风格与阅读样式 |
-| `astro.config.mjs` | 站点地址、Markdown、sitemap |
-| `.github/workflows/deploy.yml` | GitHub Pages 持续部署 |
-| `legacy/hexo/` | 原有 Hexo 脚手架备份，不参与构建 |
+| `src/pages/index.astro` | 个人首页 |
+| `src/pages/posts/index.astro` | 文章目录 |
+| `src/pages/topics/[id].astro` | 分类页模板 |
+| `src/pages/posts/[...id].astro` | 文章阅读模板 |
+| `src/content/posts/` | 以后要公开的文章，当前为空 |
+| `src/lib/topics.ts` | Praxian 两级分类词表 |
+| `src/assets/character.png` | 个人视觉体系已确认的角色切图 |
+| `src/styles/global.css` | 配色、排版和多端布局 |
+| `public/fonts/` | 个人视觉字体子集及 OFL 许可 |
+| `legacy/hexo/` | 旧 Hexo 脚手架存档，不参与构建 |
 
-网站不依赖付费数据库、CMS 或 Obsidian Publish。生成的 `dist/` 可部署到支持静态文件的托管平台。博客没有自动同步整个笔记库的功能；逐篇整理后发布。
-
-## 内容与依赖
-
-文章与个人媒体保留其作者权利。第三方依赖遵循各自的开源许可证。原有 Hexo 文件保留在 `legacy/hexo/`。
+Astro 生成静态 HTML，可托管到 GitHub Pages 或其他静态平台，支持后续绑定自有域名。文章和个人形象保留其作者权利，字体与依赖遵循各自开源许可。

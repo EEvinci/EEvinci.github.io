@@ -8,7 +8,7 @@ if (!slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
 }
 const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 const target = new URL(`../src/content/posts/${slug}.md`, import.meta.url);
-const content = `---\ntitle: ${JSON.stringify(title)}\ndescription: "用一两句话说明这篇文章回答什么问题。"\ndate: ${date}\ntags: []\ndraft: true\nfeatured: false\n---\n\n## 问题与背景\n\n\n\n## 我的理解或实践\n\n\n\n## 结论与下一步\n\n\n\n## 参考资料\n\n`;
+const content = `---\ntitle: ${JSON.stringify(title)}\ndescription: "用一两句话说明这篇文章回答什么问题。"\ndate: ${date}\nareas: []\ntags: []\ndraft: true\n---\n\n## 问题与背景\n\n\n\n## 我的理解或实践\n\n\n\n## 结论与下一步\n\n\n\n## 参考资料\n\n`;
 try {
   await writeFile(target, content, { flag: 'wx' });
   console.log(`已创建草稿：${fileURLToPath(target)}\n定稿后将 draft 改为 false，运行 npm run build && npm run verify 检查。`);

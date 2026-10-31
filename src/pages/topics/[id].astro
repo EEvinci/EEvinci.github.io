@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import { topics } from '../../lib/topics';
+import { publishedPosts } from '../../lib/posts';
+import PostRow from '../../components/PostRow.astro';
+export function getStaticPaths() { return topics.map(topic => ({ params: { id: topic.id }, props: { topic } })); }
+const { topic } = Astro.props;
+const posts = (await publishedPosts()).filter(post => post.data.areas.includes(topic.title));
+---
+<Base title={topic.title} description={topic.description}>
+  <nav class="breadcrumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/posts/">文章目录</a><span>/</span><span aria-current="page">{topic.title}</span></nav>
+  <header class="topic-heading"><p class="eyebrow">{topic.english}</p><h1>{topic.title}</h1><p>{topic.description}</p></header>
+  <div class="topic-layout"><aside class="subject-index"><p class="eyebrow">IN THIS SECTION</p><h2>主题索引</h2><ul>{topic.subjects.map(subject => <li>{subject}</li>)}</ul><a href="/posts/" class="back-link">← 返回文章目录</a></aside><section class="topic-content" aria-label="分类文章">{posts.length ? posts.map(post => <PostRow post={post} />) : <div class="unwritten"><span class="empty-page-number">01 / A PAGE TO COME</span><div class="window-motif" aria-hidden="true"><i></i><i></i><span></span></div><h2>下一页，留给新的思考。</h2><p>这里还没有公开文章。<br />关于{topic.title}的笔记，会慢慢整理到这里。</p><span class="handwriting">保持好奇，认真求证。</span></div>}</section></div>
+</Base>
