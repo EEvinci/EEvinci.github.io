@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import { publishedPosts } from '../../lib/posts';
+import { topics } from '../../lib/topics';
+import PostRow from '../../components/PostRow.astro';
+const posts = await publishedPosts();
+---
+<Base title="文章目录">
+  <nav class="breadcrumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><span aria-current="page">文章目录</span></nav>
+  <header class="directory-heading"><div><p class="eyebrow">THE NOTEBOOK</p><h1>探索与实践</h1><p>把学习中的线索，整理成值得回看的思考。</p></div><span class="handwriting">让想法，有处落笔。</span></header>
+  <section class="topic-grid" aria-label="文章分类">{topics.map((topic, index) => {
+    const count = posts.filter(post => post.data.areas.includes(topic.title)).length;
+    return <a class="topic-folder" href={`/topics/${topic.id}/`}><span class="folder-tab">{String(index + 1).padStart(2, '0')} / FIELD NOTES</span><div class="folder-title"><h2>{topic.title}</h2><span aria-hidden="true">↗</span></div><p>{topic.description}</p><div class="folder-meta"><span>{topic.english}</span><span>{count ? `${count} 篇文章` : '待落笔'}</span></div></a>;
+  })}</section>
+  {posts.length > 0 && <section class="published-list" aria-label="全部文章"><h2>全部文章</h2>{posts.map(post => <PostRow post={post} />)}</section>}
+  {!posts.length && <p class="directory-note"><span class="note-dot"></span>笔记正在整理中，文章会在这里逐渐积累。</p>}
+</Base>

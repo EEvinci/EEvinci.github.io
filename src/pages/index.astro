@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import character from '../assets/character.png';
+---
+<Base>
+  <section class="identity-home" aria-label="Evinci 的个人主页">
+    <div class="identity-copy">
+      <p class="eyebrow">A CURIOUS MIND</p>
+      <h1 lang="en"><span>Understand</span><span>complexity.</span><span>Act simply.</span></h1>
+      <p class="identity-title">有结构的好奇心</p>
+      <p class="identity-intro">我是 Evinci，关注 AI、教育与创作。<br />在复杂的问题里寻找结构，把新的理解带回实践。</p>
+      <ul class="personal-tags" aria-label="个人标签"><li>清晰</li><li>自主</li><li>生动</li></ul>
+    </div>
+    <div class="identity-portrait">
+      <span class="portrait-index">EV / 01</span>
+      <div class="portrait-window"></div><div class="portrait-inset"></div><span class="blue-tab"></span>
+      <Image class="character" src={character} alt="Evinci 的 Q 版个人形象" width={373} height={560} format="webp" loading="eager" fetchpriority="high" />
+      <span class="handnote">换个角度看看。</span>
+    </div>
+  </section>
+  <section class="thinking-strip" aria-label="我的思考方式">
+    <div class="thinking-caption"><span class="eyebrow">HOW I THINK</span><span>我的思考方式</span></div>
+    <div class="thinking-step"><span class="step-number">01.</span><div><span class="step-label">OBSERVE</span><p>先看关系，再看细节。</p></div></div>
+    <div class="thinking-step"><span class="step-number">02.</span><div><span class="step-label">THINK</span><p>保持好奇，认真求证。</p></div></div>
+    <a class="writing-entry" href="/posts/"><span class="folder-tab">FIELD NOTES</span><span class="writing-entry-title">进入文章目录 <span aria-hidden="true">↗</span></span><span class="writing-entry-caption">学习 · 思考 · 实践</span></a>
+  </section>
+</Base>
