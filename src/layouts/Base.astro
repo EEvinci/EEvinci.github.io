@@ -28,12 +28,13 @@ const canonical = new URL(path === '/404/' ? '/404.html' : path, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main">跳到正文</a>
-    <div class:list={['site-shell', { 'home-shell': path === '/' }]}>
+    <div class:list={['site-shell', { 'home-shell': path === '/', 'wide-shell': path !== '/', 'graph-shell': path.startsWith('/graph') }]}>
       <header class="site-header">
         <a class="brand" href="/" aria-label="Evinci 首页">Evinci<span class="brand-divider"></span><span class="brand-caption">PERSONAL NOTES</span></a>
         <nav aria-label="主导航">
           <a href="/" aria-current={path === '/' ? 'page' : undefined}>首页</a>
-          <a href="/posts/" aria-current={path.startsWith('/posts/') || path.startsWith('/topics/') ? 'page' : undefined}>文章目录</a>
+          <a href="/posts/" aria-current={path.startsWith('/posts/') || path.startsWith('/topics/') ? 'page' : undefined}>文章</a>
+          <a href="/graph/" aria-current={path.startsWith('/graph') ? 'page' : undefined}>知识图谱</a>
           <a class="github-link" href={site.github}>GitHub <span aria-hidden="true">↗</span></a>
         </nav>
       </header>
