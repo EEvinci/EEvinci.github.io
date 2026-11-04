@@ -2,42 +2,58 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import character from '../assets/character.png';
-const letters = (word: string, offset: number) => [...word].map((letter, index) => ({ letter, index: offset + index }));
+import '../styles/home-reference.css';
 ---
 <Base>
-  <section class="identity-home interactive-home" aria-label="Evinci 的个人主页">
+<div id="evinci-hook" class="reference-home" data-flipped="false">
     <div class="paper-reveal" aria-hidden="true">
       <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="currentColor" stroke-width="1.3"><path d="M60 190Q240 40 340 190T620 210T1120 110M90 570Q320 360 530 610T1100 530"/><circle cx="180" cy="140" r="66"/><circle cx="1000" cy="620" r="110"/><path d="M70 340h150m-75-75v150M840 130h140v100H840zM850 140l120 80m0-80l-120 80M540 120l40-25 40 25-40 25z"/><path stroke-dasharray="5 9" d="M220 340Q410 300 580 120T1000 620"/></g><g fill="currentColor" font-family="Georgia,serif" font-style="italic" font-size="25"><text x="70" y="500">What if?</text><text x="740" y="330">Make it real.</text><text x="400" y="720">Find the connection.</text></g><g fill="#b99353"><circle cx="580" cy="120" r="7"/><circle cx="1000" cy="620" r="8"/></g></svg>
     </div>
-    <div class="identity-copy">
-      <p class="eyebrow">A CURIOUS MIND</p>
-      <h1 class="kinetic-title" lang="en" aria-label="Understand complexity. Act simply.">
-        <span class="title-line title-understand" aria-hidden="true">{letters('Understand', 0).map(({letter,index}) => <span class="type-letter" style={`--letter:${index}`}>{letter}</span>)}</span>
-        <span class="title-line title-complexity"><button type="button" class="word-button complexity-button" aria-label="把 complexity 化为 clarity" aria-pressed="false"><span class="complexity-original" aria-hidden="true">{letters('complexity.', 10).map(({letter,index}) => <span class="type-letter" style={`--letter:${index}`}>{letter}</span>)}</span><span class="clarity-word" aria-hidden="true">clarity.</span></button></span>
-        <span class="title-line title-action"><button type="button" class="word-button act-button" aria-label="Act，让想法起飞"><span aria-hidden="true">{letters('Act', 21).map(({letter,index}) => <span class="type-letter" style={`--letter:${index}`}>{letter}</span>)}</span></button><span aria-hidden="true">{letters(' simply.', 24).map(({letter,index}) => <span class="type-letter" style={`--letter:${index}`}>{letter === ' ' ? '\u00a0' : letter}</span>)}</span></span>
-      </h1>
-      <div class="home-tools"><button type="button" class="replay-type" aria-label="重播英文标题打字效果">重播文字 <span aria-hidden="true">↻</span></button><button type="button" class="reveal-toggle" aria-pressed="false">探索纸面 <span aria-hidden="true">✧</span></button></div>
-      <p class="identity-title">有结构的好奇心</p>
-      <p class="identity-intro tilt-surface">我是 Evinci，关注 AI、教育与创作。<br />在复杂的问题里寻找结构，把新的理解带回实践。</p>
-      <ul class="personal-tags" aria-label="个人标签"><li>清晰</li><li>自主</li><li>生动</li></ul>
-    </div>
-    <div class="identity-portrait">
-      <span class="portrait-index">EV / 01</span>
-      <div class="portrait-window"></div><div class="portrait-inset"></div><span class="blue-tab"></span>
-      <Image class="character" src={character} alt="Evinci 的 Q 版个人形象" width={373} height={560} format="webp" loading="eager" fetchpriority="high" />
-      <button class="idea-trigger" type="button" aria-label="接住一颗灵感" aria-pressed="false"><span aria-hidden="true">✧</span></button><span class="idea-orb" aria-hidden="true"></span>
-      <button class="handnote flip-note" type="button" aria-label="换个角度看看，点击翻转便签" aria-pressed="false"><span class="note-inner"><span class="note-front">换个角度看看。<small>点击翻转 ↗</small></span><span class="note-back">新的视角，新的发现。</span></span></button>
-    </div>
-    <span class="home-plane" aria-hidden="true"></span>
-    <span class="home-status sr-only" role="status"></span>
-  </section>
-  <section class="thinking-strip" aria-label="我的思考方式">
-    <div class="thinking-caption"><span class="eyebrow">HOW I THINK</span><span>我的思考方式</span></div>
-    <div class="thinking-step"><span class="step-number">01.</span><div><span class="step-label">OBSERVE</span><p>先看关系，再看细节。</p></div></div>
-    <div class="thinking-step"><span class="step-number">02.</span><div><span class="step-label">THINK</span><p>保持好奇，认真求证。</p></div></div>
-    <a class="writing-entry tilt-surface" href="/posts/"><span class="folder-tab">FIELD NOTES</span><span class="writing-entry-title">进入文章目录 <span aria-hidden="true">↗</span></span><span class="writing-entry-caption">学习 · 思考 · 实践</span></a>
-  </section>
+<section class="eh-hero" aria-label="Evinci 的个人主页"><div><p class="eh-eyebrow">AI / EDUCATION / CREATION</p><div class="eh-title-stage"><h1 aria-label="Understand complexity. Act simply."><span class="eh-title-line eh-understand"><span class="reference-letter" style="--letter:0">U</span><span class="reference-letter" style="--letter:1">n</span><span class="reference-letter" style="--letter:2">d</span><span class="reference-letter" style="--letter:3">e</span><span class="reference-letter" style="--letter:4">r</span><span class="reference-letter" style="--letter:5">s</span><span class="reference-letter" style="--letter:6">t</span><span class="reference-letter" style="--letter:7">a</span><span class="reference-letter" style="--letter:8">n</span><span class="reference-letter" style="--letter:9">d</span></span><button type="button" class="eh-title-line eh-complexity cursor-interaction" aria-label="Complexity. Find a little clarity." aria-pressed="false"><span class="eh-original" aria-hidden="true"><span class="reference-letter" style="--letter:10">c</span><span class="reference-letter" style="--letter:11">o</span><span class="reference-letter" style="--letter:12">m</span><span class="reference-letter" style="--letter:13">p</span><span class="reference-letter" style="--letter:14">l</span><span class="reference-letter" style="--letter:15">e</span><span class="reference-letter" style="--letter:16">x</span><span class="reference-letter" style="--letter:17">i</span><span class="reference-letter" style="--letter:18">t</span><span class="reference-letter" style="--letter:19">y</span><span class="reference-letter" style="--letter:20">.</span></span><span class="eh-lettercloud" aria-hidden="true"><span style="--sx:-17px;--sy:14px;--spin:-34deg;--delay:0ms">c</span><span style="--sx:0px;--sy:-19px;--spin:-17deg;--delay:12ms">o</span><span style="--sx:17px;--sy:24px;--spin:0deg;--delay:24ms">m</span><span style="--sx:-17px;--sy:-29px;--spin:17deg;--delay:36ms">p</span><span style="--sx:0px;--sy:14px;--spin:34deg;--delay:48ms">l</span><span style="--sx:17px;--sy:-19px;--spin:-34deg;--delay:60ms">e</span><span style="--sx:-17px;--sy:24px;--spin:-17deg;--delay:72ms">x</span><span style="--sx:0px;--sy:-29px;--spin:0deg;--delay:84ms">i</span><span style="--sx:17px;--sy:14px;--spin:17deg;--delay:96ms">t</span><span style="--sx:-17px;--sy:-19px;--spin:34deg;--delay:108ms">y</span><span style="--sx:0px;--sy:24px;--spin:-34deg;--delay:120ms">.</span></span><span class="eh-clarity" aria-hidden="true">clarity.</span></button><span class="eh-title-line eh-action"><button type="button" class="eh-act cursor-interaction" aria-label="Act. Set an idea in motion." aria-pressed="false"><span class="reference-letter" style="--letter:21">A</span><span class="reference-letter" style="--letter:22">c</span><span class="reference-letter" style="--letter:23">t</span></button> <span class="eh-simply"><span class="reference-letter" style="--letter:24">s</span><span class="reference-letter" style="--letter:25">i</span><span class="reference-letter" style="--letter:26">m</span><span class="reference-letter" style="--letter:27">p</span><span class="reference-letter" style="--letter:28">l</span><span class="reference-letter" style="--letter:29">y</span><span class="reference-letter" style="--letter:30">.</span></span></span></h1></div><div class="reference-tools"><button type="button" class="reference-replay">重播文字 ↻</button><button type="button" class="reference-reveal" aria-pressed="false">探索纸面 ✧</button></div><p class="eh-lede" aria-live="polite">Exploring what AI can do.<br>Building things worth using.</p></div><div class="eh-stage"><div class="eh-window"></div><div class="eh-frame"></div><div class="eh-sky" aria-hidden="true"><span>✦</span><span>✧</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span></div><Image class="eh-person" src={character} alt="Evinci 的 Q 版个人形象" width={373} height={560} format="webp" loading="eager" fetchpriority="high" /><button type="button" class="eh-hand cursor-interaction" aria-label="A little spark in the palm. Catch an idea." aria-pressed="false"></button><span class="eh-idea" aria-hidden="true"></span><span class="eh-idea-note" role="status" aria-live="polite"></span><button type="button" class="eh-flip cursor-interaction" aria-label="Stay curious. Flip to try another angle." aria-pressed="false"><span class="eh-flip-inner" aria-hidden="true"><span class="eh-face"><strong>Stay curious.</strong><small>CLICK TO FLIP ↗</small></span><span class="eh-face eh-back"><strong>Try another angle.</strong><small>A FRESH PERSPECTIVE ↗</small></span></span></button></div></section>
+<section class="eh-explore" aria-label="Current exploration"><div class="explore-heading"><h2>CURRENT EXPLORATION</h2><a href="/posts/">进入文章目录 ↗</a></div><div class="eh-topics"><article class="eh-topic"><h3>Agent Workflow</h3><p>Connecting tools. Getting things done.</p></article><article class="eh-topic"><h3>Building with AI</h3><p>From “what if” to working prototypes.</p></article><article class="eh-topic"><h3>AI Education</h3><p>Useful ideas for real learning.</p></article></div></section>
+<span class="eh-edition sr-only" aria-live="polite">A CURIOUS MIND</span><span class="eh-plane" aria-hidden="true"></span><span class="eh-unravel-status" role="status"></span>
+<script is:inline>
+(()=>{const root=document.getElementById('evinci-hook');const button=root.querySelector('.eh-flip');let flipped=false;function render(){root.dataset.flipped=String(flipped);button.setAttribute('aria-pressed',String(flipped));button.setAttribute('aria-label',flipped?'Try another angle. Flip back to stay curious.':'Stay curious. Flip to try another angle.');}render();button.addEventListener('click',()=>{flipped=!flipped;render();});})();
+</script>
+<script is:inline>
+(()=>{
+const root=document.getElementById('evinci-hook');
+const fine=window.matchMedia('(hover: hover) and (pointer: fine)');
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+root.querySelectorAll('.eh-lede,.eh-topic').forEach(card=>{
+ const reset=()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');card.style.setProperty('--lift','0px');card.style.setProperty('--mx','25%');card.style.setProperty('--my','15%');};
+ card.addEventListener('pointermove',event=>{
+  if(!fine.matches||reduced.matches)return;
+  const bounds=card.getBoundingClientRect();
+  const x=Math.max(0,Math.min(1,(event.clientX-bounds.left)/bounds.width));
+  const y=Math.max(0,Math.min(1,(event.clientY-bounds.top)/bounds.height));
+  card.style.setProperty('--rx',`${(0.5-y)*8}deg`);
+  card.style.setProperty('--ry',`${(x-0.5)*10}deg`);
+  card.style.setProperty('--lift','-5px');
+  card.style.setProperty('--mx',`${x*100}%`);
+  card.style.setProperty('--my',`${y*100}%`);
+ });
+ card.addEventListener('pointerleave',reset);
+ card.addEventListener('pointercancel',reset);
+ reduced.addEventListener('change',reset);
+});
+})();
+
+</script>
+<script is:inline>
+(()=>{const root=document.getElementById('evinci-hook');const hand=root.querySelector('.eh-hand');const message=root.querySelector('.eh-idea-note');let timer;function dismiss(){root.dataset.idea='false';hand.setAttribute('aria-pressed','false');message.textContent='';}hand.addEventListener('click',()=>{clearTimeout(timer);if(root.dataset.idea==='true'){dismiss();return;}root.dataset.idea='true';hand.setAttribute('aria-pressed','true');message.textContent='Every big idea starts with a little spark.';timer=setTimeout(dismiss,6000);});root.addEventListener('keydown',event=>{if(event.key==='Escape'){clearTimeout(timer);dismiss();}});})();
+
+</script>
+<script is:inline>
+(()=>{const root=document.getElementById('evinci-hook');const act=root.querySelector('button.eh-act');const plane=root.querySelector('.eh-plane');const edition=root.querySelector('.eh-edition');const original=edition.innerHTML;let active=false,timer;function reset(){active=false;root.dataset.flight='false';edition.innerHTML=original;act.setAttribute('aria-pressed','false');}act.addEventListener('click',()=>{if(active)return;const r=root.getBoundingClientRect();const a=act.getBoundingClientRect();const portrait=root.querySelector('.eh-stage').getBoundingClientRect();const put=(k,v)=>plane.style.setProperty(k,`${Math.round(v)}px`);const x=Math.min(r.width-50,Math.max(8,a.left-r.left+a.width*.5));const y=a.top-r.top;put('--fx',x);put('--fy',y);put('--px',Math.min(r.width-55,portrait.right-r.left-30));put('--py',Math.max(90,portrait.top-r.top+12));put('--qx',Math.min(r.width-55,portrait.right-r.left-12));put('--qy',portrait.top-r.top+portrait.height*.65);put('--rx',Math.max(12,portrait.left-r.left-10));put('--ry',portrait.top-r.top+portrait.height*.8);active=true;root.dataset.flight='true';act.setAttribute('aria-pressed','true');edition.innerHTML='LESS OVERTHINKING.<br>MORE TAKING FLIGHT.';timer=setTimeout(reset,3300);});root.addEventListener('keydown',event=>{if(event.key==='Escape'){clearTimeout(timer);reset();}});})();
+
+</script>
+<script is:inline>
+(()=>{const root=document.getElementById('evinci-hook');const button=root.querySelector('button.eh-complexity');const status=root.querySelector('.eh-unravel-status');let busy=false,timer;function restore(){root.dataset.unravel='false';busy=false;button.setAttribute('aria-pressed','false');status.textContent='';}button.addEventListener('click',()=>{if(busy)return;busy=true;button.setAttribute('aria-pressed','true');root.dataset.unravel='true';status.textContent='Complexity becomes clarity.';timer=setTimeout(restore,3700);});root.addEventListener('keydown',event=>{if(event.key==='Escape'){clearTimeout(timer);restore();}});})();
+
+</script>
+</div>
 </Base>
 <script>
-  import '../scripts/home-interactions';
+ import '../scripts/home-interactions';
 </script>
