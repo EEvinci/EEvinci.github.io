@@ -120,3 +120,44 @@
 @media(min-width:701px) and (max-width:1000px){.identity-copy .kinetic-title{font-size:clamp(42px,5.8vw,58px)}}
 @media(max-width:700px){.identity-copy .kinetic-title{font-size:clamp(43px,10vw,64px)}.interactive-home .identity-portrait{margin-bottom:12px}.interactive-home .flip-note{width:175px;height:68px;right:-10px;bottom:3px}.note-front{font-size:16px}.note-back{font-size:14px}.home-shell .identity-intro{padding:16px;font-size:13px}.paper-reveal{mask-image:radial-gradient(circle 140px at var(--lens-x) var(--lens-y),#000,transparent);-webkit-mask-image:radial-gradient(circle 140px at var(--lens-x) var(--lens-y),#000,transparent)}.lens-pinned .paper-reveal{mask-image:none;-webkit-mask-image:none;opacity:.35}}
 @media(prefers-reduced-motion:reduce){.interactive-home *,.home-shell .tilt-surface{animation:none!important;transition:none!important}.type-letter{opacity:1!important;transform:none!important;filter:none!important}.is-clear .complexity-original{opacity:0}.is-clear .clarity-word{opacity:1}.is-flying .home-plane{opacity:1;transform:translate(var(--flight-x),var(--flight-y))}.home-shell .tilt-surface{transform:none}.paper-reveal{mask-image:none;-webkit-mask-image:none}.lens-visible .paper-reveal{opacity:.25}}
+
+/* The homepage is a viewport-wide composition, not the reading-width container. */
+.home-shell{width:100%;max-width:none;padding-inline:clamp(20px,4.5vw,160px)}
+@media(min-width:1001px){
+ .home-shell .site-header{min-height:max(84px,9svh);padding-block:2svh}
+ .home-shell .brand{font-size:max(34px,2.45vw)}
+ .home-shell .brand-caption{font-size:max(8px,.56vw);letter-spacing:.14em}
+ .home-shell .site-header nav{font-size:max(12px,.83vw);gap:2.3vw}
+ .home-shell .identity-home{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:4vw;padding:2.5svh 0}
+ .home-shell .identity-copy .kinetic-title{font-size:max(48px,min(6.4vw,8.4svh));line-height:1.09}
+ .home-shell .identity-copy>.eyebrow{font-size:max(10px,.76vw);margin-bottom:2svh}
+ .home-shell .identity-title{font-size:max(24px,min(2.2vw,3svh));margin-top:2.4svh}
+ .home-shell .identity-intro{font-size:max(14px,min(1.12vw,1.5svh));width:min(100%,36em);max-width:none;margin-top:1.6svh;padding:1em}
+ .home-shell .personal-tags{font-size:max(12px,.85vw);margin-top:2svh}
+ .home-shell .identity-portrait{justify-self:center;width:min(100%,max(340px,53svh));max-width:none;max-height:none;height:auto;aspect-ratio:345/385}
+ .home-shell .portrait-index{font-size:max(8px,.65vw)}
+ .home-shell .interactive-home .flip-note{width:max(200px,min(18vw,28svh));height:max(76px,min(7vw,10svh));right:-1vw;bottom:2svh}
+ .home-shell .note-front{font-size:max(18px,min(1.45vw,2.5svh))}
+ .home-shell .note-back{font-size:max(16px,min(1.2vw,2.2svh))}
+ .home-shell .note-front small{font-size:max(9px,.62vw)}
+ .home-shell .home-tools{gap:1.4vw;margin-top:1.5svh}
+ .home-shell .home-tools button{font-size:max(10px,.7vw);min-height:38px}
+ .home-shell .thinking-strip{padding-block:3svh;gap:2.5vw}
+ .home-shell .thinking-caption .eyebrow,.home-shell .step-label{font-size:max(8px,.6vw)}
+ .home-shell .thinking-caption>span:last-child,.home-shell .thinking-step p{font-size:max(12px,.88vw)}
+ .home-shell .step-number{font-size:max(25px,1.9vw)}
+ .home-shell .writing-entry{padding:.7em;font-size:max(13px,.95vw)}
+ .home-shell .writing-entry-title{font-size:inherit}
+ .home-shell .writing-entry-caption{font-size:max(10px,.72vw)}
+ .home-shell .folder-tab{font-size:max(8px,.58vw);line-height:1.8;top:-1.8em}
+ .home-shell .site-footer{min-height:max(68px,7svh);font-size:max(10px,.7vw)}
+ .home-shell .footer-signature{font-size:max(14px,1vw)}
+}
+@media(min-width:1001px) and (max-height:760px){
+ .home-shell .identity-home{padding-block:24px}
+ .home-shell .identity-copy .kinetic-title{font-size:max(44px,min(5.1vw,10svh))}
+ .home-shell .identity-intro{padding:14px 18px}
+ .home-shell .identity-portrait{width:min(100%,max(300px,55svh))}
+ .home-shell .identity-title{margin-top:16px}
+ .home-shell .thinking-strip{padding-block:24px}
+}
