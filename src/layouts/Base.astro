@@ -28,7 +28,7 @@ const canonical = new URL(path === '/404/' ? '/404.html' : path, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main">跳到正文</a>
-    <div class="site-shell">
+    <div class:list={['site-shell', { 'home-shell': path === '/' }]}>
       <header class="site-header">
         <a class="brand" href="/" aria-label="Evinci 首页">Evinci<span class="brand-divider"></span><span class="brand-caption">PERSONAL NOTES</span></a>
         <nav aria-label="主导航">
